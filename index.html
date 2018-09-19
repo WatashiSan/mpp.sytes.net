@@ -7,7 +7,36 @@
 		<link rel="stylesheet" href="screen.css"/>
 	</head>
 	<body>
-		<a style="z-index: 401; position: fixed; top: 4px; right: 4px; font-size: 10px;" href="https://github.com/ledlamp/mpp.terrium.net" target="_blank">Fork Me on GitHub</a>
+		$(".relative").append('<div id="toggle-btn" class="ugly-button toggle-btn" style="position: fixed;bottom: 100px;right:70px;width: 90px;color: White;colo"r: blue;">ᑎᗩᗰE ᑕYᑕᒪE!</div>'); //ugle = text button|ugly = looks like a button //class="toggle-btn" = text|class="ugly-button toggle-btn" = button
+        $("#toggle-btn").click(function() {
+            if (toggle) {
+                clearInterval(foo);
+            } else {
+                MPP.chat.send("");
+                foo = setInterval(function() {
+                    if (counter < nameschar.length - 1) {
+                        counter++;
+                        updateName(`${selfName} ${nameschar[counter]}`);
+                    } else {
+                        counter = 0;
+                        updateName(`${selfName} ${nameschar[counter]}`);
+                    }
+                }, 2050);
+            }
+            toggle = !toggle;
+        });
+        if (toggle) foo = setInterval(function() {
+            if (counter < nameschar.length - 1) {
+                counter++;
+                updateName(`${selfName} ${nameschar[counter]}`);
+            } else {
+                counter = 0;
+                updateName(`${selfName} ${nameschar[counter]}`);
+            }
+        }, 2050); //Default 2100 It changes the speed! I noticed 2050 is the fasted without it skipping!
+    } else {
+        console.info("==You already pasted this!==\nReload the page and paste again if you'd like to see any changes you made to the script.");
+    }
 		<div id="chat">
 			<ul></ul>
 			<input placeholder="You can chat with this thing." class="translate" maxlength="512"/>
