@@ -1,5 +1,5 @@
-if(window.location.hostname.indexOf("cursors.me") != -1 || window.location.hostname.indexOf("yourworldofpixels.com") != -1)
-        window.location.href = "http://www.ourworldofpixels.com/piano";
+if(window.location.hostname.indexOf("multiplayerpiano.com") != -1 || window.location.hostname.indexOf("multiplayerpiano.com") != -1)
+        window.location.href = "http://multiplayerpiano.com/";
 
 EXT = window.EXT || {_initfunc: []};
 window.onload = function(){
