@@ -74,7 +74,7 @@ Client.prototype.connect = function() {
 	if(typeof module !== "undefined") {
 		// nodejsicle
 		this.ws = new WebSocket(this.uri, {
-			origin: "http://www.multiplayerpiano.com"
+			origin: "http://mpp.terrium.net/"
 		});
 	} else {
 		// browseroni
