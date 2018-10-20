@@ -71,15 +71,8 @@ Client.prototype.connect = function() {
 	if(!this.canConnect || !this.isSupported() || this.isConnected() || this.isConnecting())
 		return;
 	this.emit("status", "Connecting...");
-	if(typeof module !== "undefined") {
-		// nodejsicle
-		this.ws = new WebSocket(this.uri, {
-			origin: "http://mpp.terrium.net/"
-		});
-	} else {
-		// browseroni
-		this.ws = new WebSocket(this.uri);
-	}
+	this.ws = new WebSocket(this.uri);
+	this.ws.binaryType = "arraybuffer";
 	var self = this;
 	this.ws.addEventListener("close", function(evt) {
 		self.user = undefined;
@@ -105,10 +98,6 @@ Client.prototype.connect = function() {
 		var ms = ms_lut[idx];
 		setTimeout(self.connect.bind(self), ms);
 	});
-	this.ws.addEventListener("error", function() {
-		console.trace(arguments);
-		self.ws.close(); // self.ws.emit("close");
-	});
 	this.ws.addEventListener("open", function(evt) {
 		self.connectionTime = Date.now();
 		self.sendArray([{m: "hi"}]);
@@ -130,6 +119,7 @@ Client.prototype.connect = function() {
 		self.emit("status", "Joining channel...");
 	});
 	this.ws.addEventListener("message", function(evt) {
+		if(typeof evt.data !== 'string') return;
 		var transmission = JSON.parse(evt.data);
 		for(var i = 0; i < transmission.length; i++) {
 			var msg = transmission[i];
@@ -200,7 +190,6 @@ Client.prototype.getChannelSetting = function(key) {
 };
 
 Client.prototype.offlineParticipant = {
-	_id: "",
 	name: "",
 	color: "#777"
 };
